@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UangHemat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a class="logo" href="#">uang<span>hemat</span>✦</a>
+    <p id="today"></p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">KEUANGAN LEBIH TERARAH</p>
+        <h1>UANGMU,<br /><i>masa depanmu.</i></h1>
+        <p class="hero-text">
+          catat pemasukan, pengeluaran, dan tabunganmu dalam satu tempat.
+        </p>
+      </div>
+
+      <div class="balance-card">
+        <p>SALDO SAAT INI</p>
+        <strong id="balance">Rp0</strong>
+        <span id="balanceHint">Mulai catat transaksi pertamamu.</span>
+      </div>
+    </section>
+
+    <section class="stats">
+      <article class="stat income">
+        <p>PEMASUKAN</p>
+        <strong id="income">Rp0</strong>
+        <span>↗ uang masuk</span>
+      </article>
+
+      <article class="stat expense">
+        <p>PENGELUARAN</p>
+        <strong id="expense">Rp0</strong>
+        <span>↘ uang keluar</span>
+      </article>
+
+      <article class="stat saving">
+        <p>DITABUNG</p>
+        <strong id="saved">Rp0</strong>
+        <span>◎ untuk tujuanmu</span>
+      </article>
+    </section>
+
+    <section class="app-grid">
+      <div class="left-column">
+        <section class="card">
+          <p class="eyebrow">CATAT TRANSAKSI</p>
+          <h2>hari mau ada apa?</h2>
+
+          <form id="transactionForm">
+            <div class="type-toggle">
+              <label>
+                <input type="radio" name="type" value="income" checked />
+                <span>Pemasukan</span>
+              </label>
+
+              <label>
+                <input type="radio" name="type" value="expense" />
+                <span>Pengeluaran</span>
+              </label>
+            </div>
+
+            <label>
+              Keterangan
+              <input
+                type="text"
+                name="title"
+                placeholder="Contoh: Makan siang"
+                required
+              />
+            </label>
+
+            <div class="two-columns">
+              <label>
+                Nominal (Rp)
+                <input
+                  type="number"
+                  name="amount"
+                  placeholder="25000"
+                  min="1"
+                  required
+                />
+              </label>
+
+              <label>
+                Kategori
+                <select name="category">
+                  <option>MAKANAN</option>
+                  <option>MINUMAN</option>
+                  <option>BELANJA</option>
+                  <option>HIBURAN</option>
+                  <option>LAINNYA</option>
+                </select>
+              </label>
+            </div>
+
+            <button class="primary-button" type="submit">
+              Simpan transaksi <span>→</span>
+            </button>
+          </form>
+        </section>
+
+        <section class="card">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">RIWAYAT TERBARU</p>
+              <h2>KE MANA UANG LU HABIS?</h2>
+            </div>
+
+            <button id="clearButton" class="text-button" type="button">
+              Hapus semua
+            </button>
+          </div>
+
+          <div id="history" class="history"></div>
+
+          <button id="receiptButton" class="outline-button" type="button">
+            ▣ Lihat struk keuangan
+          </button>
+        </section>
+      </div>
+
+      <aside class="card goal-card">
+        <p class="eyebrow">TUJUAN TABUNGAN</p>
+        <h2 id="goalTitle">WISHLIST LU</h2>
+        <p class="goal-description">
+          SEDIKIT DEMI SEDIKIT, OPTIMIS PASTI BISA
+        </p>
+
+        <div class="progress">
+          <div id="progressBar"></div>
+        </div>
+
+        <div class="goal-value">
+          <strong id="goalSaved">Rp0</strong>
+          <span>dari <b id="goalTarget">Rp1.000.000</b></span>
+        </div>
+
+        <p id="goalPercent" class="percentage">0% tercapai</p>
+
+        <form id="goalForm">
+          <label>
+            Nama tujuan
+            <input id="goalName" type="text" required />
+          </label>
+
+          <label>
+            Target tabungan (Rp)
+            <input id="goalAmount" type="number" min="1000" required />
+          </label>
+
+          <button class="outline-button" type="submit">
+            Simpan target
+          </button>
+        </form>
+
+        <div class="add-saving">
+          <p class="eyebrow">TAMBAH TABUNGAN</p>
+
+          <form id="savingForm">
+            <input
+              id="savingAmount"
+              type="number"
+              min="1"
+              placeholder="Nominal tabungan"
+              required
+            />
+            <button type="submit">+ Tambah</button>
+          </form>
+
+          <p id="savingNote"></p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="receiptDialog">
+    <article class="receipt">
+      <div class="receipt-header">
+        <strong>uang<span>hemat</span>✦</strong>
+        <button id="closeReceipt" type="button">×</button>
+      </div>
+
+      <p class="receipt-label">STRUK RINGKAS KEUANGAN</p>
+      <p id="receiptDate" class="receipt-date"></p>
+
+      <hr />
+
+      <div class="receipt-row">
+        <span>Pemasukan</span>
+        <strong id="receiptIncome">Rp0</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Pengeluaran</span>
+        <strong id="receiptExpense">Rp0</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Tabungan</span>
+        <strong id="receiptSaving">Rp0</strong>
+      </div>
+
+      <button id="resetAppButton" class="text-button" type="button">
+  Reset semua data
+</button>
+
+      <hr />
+
+      <div class="receipt-row total">
+        <span>SISA SALDO</span>
+        <strong id="receiptBalance">Rp0</strong>
+      </div>
+
+      <p class="receipt-label">TRANSAKSI TERBARU</p>
+      <div id="receiptItems"></div>
+
+      <button id="printReceipt" class="primary-button" type="button">
+        Cetak / simpan sebagai PDF
+      </button>
+    </article>
+  </dialog>
+
+  <footer>
+    <a class="logo" href="#">uang<span>hemat</span>✦</a>
+    <p>Satu catatan kecil, satu langkah menuju tujuan.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
